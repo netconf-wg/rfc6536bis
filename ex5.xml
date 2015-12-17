@@ -1,0 +1,19 @@
+<nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+  <rule-list>
+    <name>sys-acl</name>
+    <group>limited</group>
+    <group>guest</group>
+    
+    <rule>
+      <name>deny-config-change</name>
+      <module-name>acme-system</module-name>
+      <notification-name>sys-config-change</notification-name>
+      <access-operations>read</access-operations>
+      <action>deny</action>
+      <comment>
+        Do not allow the guest or limited groups 
+        to receive config change events.
+      </comment>
+    </rule>
+  </rule-list>
+</nacm>

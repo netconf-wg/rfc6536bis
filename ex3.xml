@@ -1,0 +1,47 @@
+<nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+  <rule-list>
+    <name>guest-limited-acl</name>
+    <group>limited</group>
+    <group>guest</group>
+
+    <rule>
+      <name>deny-kill-session</name>
+      <module-name>ietf-netconf</module-name>
+      <rpc-name>kill-session</rpc-name>
+      <access-operations>exec</access-operations>
+      <action>deny</action>
+      <comment>
+        Do not allow the limited or guest group
+        to kill another session.
+      </comment>
+    </rule>
+    <rule>
+      <name>deny-delete-config</name>
+      <module-name>ietf-netconf</module-name>
+      <rpc-name>delete-config</rpc-name>
+      <access-operations>exec</access-operations>
+      <action>deny</action>
+      <comment>
+        Do not allow limited or guest group
+        to delete any configurations.
+      </comment>
+    </rule>
+  </rule-list>
+
+  <rule-list>
+    <name>limited-acl</name>
+    <group>limited</group>
+
+    <rule>
+      <name>permit-edit-config</name>
+      <module-name>ietf-netconf</module-name>
+      <rpc-name>edit-config</rpc-name>
+      <access-operations>exec</access-operations>
+      <action>permit</action>
+      <comment>
+        Allow the limited group to edit the configuration.
+      </comment>
+    </rule>
+  </rule-list>
+
+</nacm>

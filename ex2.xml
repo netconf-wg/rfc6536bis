@@ -1,0 +1,60 @@
+<nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+  <rule-list>
+    <name>guest-acl</name>
+    <group>guest</group>
+
+    <rule>
+      <name>deny-ncm</name>
+      <module-name>ietf-netconf-monitoring</module-name>
+      <access-operations>*</access-operations>
+      <action>deny</action>
+      <comment>
+          Do not allow guests any access to the netconf 
+          monitoring information.
+      </comment>
+    </rule>
+  </rule-list>
+
+  <rule-list>
+    <name>limited-acl</name>
+    <group>limited</group>
+
+    <rule>
+      <name>permit-ncm</name>
+      <module-name>ietf-netconf-monitoring</module-name>
+      <access-operations>read</access-operations>
+      <action>permit</action>
+      <comment>
+          Allow read access to the netconf 
+          monitoring information.
+      </comment>
+    </rule>
+    <rule>
+      <name>permit-exec</name>
+      <module-name>*</module-name>
+      <access-operations>exec</access-operations>
+      <action>permit</action>
+      <comment>
+          Allow invocation of the
+          supported server operations.
+      </comment>
+    </rule>
+  </rule-list>
+
+  <rule-list>
+    <name>admin-acl</name>
+    <group>admin</group>
+
+    <rule>
+      <name>permit-all</name>
+      <module-name>*</module-name>
+      <access-operations>*</access-operations>
+      <action>permit</action>
+      <comment>
+          Allow the admin group complete access to all
+          operations and data.
+      </comment>
+    </rule>
+  </rule-list>
+</nacm>
+

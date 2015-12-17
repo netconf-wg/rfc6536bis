@@ -1,29 +1,4 @@
-# draft-ietf-netconf-rfc6536bis
-
-This repository is for the development of a IETF draft for the [NETCONF working group](http://datatracker.ietf.org/wg/netconf/charter/).
-
-## Links
-
-* IETF Page: https://tools.ietf.org/html/draft-ietf-netconf-rfc6536bis
-* Mailing List: https://www.ietf.org/mailman/listinfo/netconf
-* Issue Tracking: https://github.com/netconf-wg/rfc6536bis/issues
-
-
-## Issue States
-
-The following labels are used in the issue tracker for issues
-in the "open" state:
-
-- NEW:  A submitted issue
-- OPEN: An accepted issue open to discussion
-- DEAD: A rejected issue closed to discussion
-- VERIFY: An open issue with a solution proposal that needs to be verified on the mailing list
-- EDIT: The issue is waiting for the document editor(s) to make the corresponding changes
-- REVIEW: The edits have been done and the updated I-D need to be reviewed
-- DONE: The edits have been reviewed and the issue has been resolved
-
-
-## Contributing
+# Contributing
 
 Before submitting feedback, please familiarize yourself with our current issues
 list and review the [working group home page](http://datatracker.ietf.org/wg/netconf/charter/). If you're new to this, you may also want to read the [Tao of the

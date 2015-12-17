@@ -1,0 +1,74 @@
+<nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+  <rule-list>
+    <name>guest-acl</name>
+    <group>guest</group>
+
+    <rule>
+      <name>deny-nacm</name>
+      <path xmlns:n="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+        /n:nacm
+      </path>
+      <access-operations>*</access-operations>
+      <action>deny</action>
+      <comment>
+        Deny the guest group any access to the /nacm data.
+      </comment>
+    </rule>
+  </rule-list>
+
+  <rule-list>
+    <name>limited-acl</name>
+    <group>limited</group>
+
+    <rule>
+      <name>permit-acme-config</name>
+      <path xmlns:acme="http://example.com/ns/netconf">
+        /acme:acme-netconf/acme:config-parameters
+      </path>
+      <access-operations>
+        read create update delete
+      </access-operations>
+      <action>permit</action>
+      <comment>
+        Allow the limited group complete access to the acme
+        netconf configuration parameters.  Showing long form
+        of 'access-operations' instead of shorthand.
+      </comment>
+    </rule>
+  </rule-list>
+
+  <rule-list>
+    <name>guest-limited-acl</name>
+    <group>guest</group>
+    <group>limited</group>
+
+    <rule>
+      <name>permit-dummy-interface</name>
+      <path xmlns:acme="http://example.com/ns/itf">
+        /acme:interfaces/acme:interface[acme:name='dummy']
+      </path>
+      <access-operations>read update</access-operations>
+      <action>permit</action>
+      <comment>
+        Allow the limited and guest groups read
+        and update access to the dummy interface.
+      </comment>
+    </rule>
+  </rule-list>
+
+  <rule-list>
+    <name>admin-acl</name>
+    <group>admin</group>
+    <rule>
+      <name>permit-interface</name>
+      <path xmlns:acme="http://example.com/ns/itf">
+        /acme:interfaces/acme:interface
+      </path>
+      <access-operations>*</access-operations>
+      <action>permit</action>
+      <comment>
+        Allow admin full access to all acme interfaces.
+      </comment>
+    </rule>
+  </rule-list>
+</nacm>
