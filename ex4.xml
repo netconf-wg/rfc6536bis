@@ -31,7 +31,7 @@
       <action>permit</action>
       <comment>
         Allow the limited group complete access to the acme
-        netconf configuration parameters.  Showing long form
+        NETCONF configuration parameters.  Showing long form
         of 'access-operations' instead of shorthand.
       </comment>
     </rule>

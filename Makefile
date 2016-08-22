@@ -8,8 +8,11 @@ xml2rfc ?= xml2rfc
 kramdown-rfc2629 ?= kramdown-rfc2629
 oxtradoc ?= oxtradoc
 idnits ?= idnits
+pyang ?= pyang
 
 draft := $(basename $(lastword $(sort $(wildcard draft-*.xml)) $(sort $(wildcard draft-*.md)) $(sort $(wildcard draft-*.org)) ))
+
+draft = draft-bierman-netconf-rfc6536bis
 
 ifeq (,$(draft))
 $(warning No file named draft-*.md or draft-*.xml or draft-*.org)
@@ -46,6 +49,12 @@ ifeq (.org,$(draft_type))
 	-rm -f $(draft).xml
 endif
 
+$(draft).xml: netconf-access-control.xml.in ietf-netconf-acm.yang \
+	ietf-netconf-acm.tree ex1.xml ex2.xml ex3.xml ex4.xml ex5.xml
+	@rm -f $@
+	m4 -P $< > $@
+	@chmod a-w $@
+
 $(next).xml: $(draft).xml
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" $< > $@
 
@@ -58,6 +67,9 @@ $(next).xml: $(draft).xml
 
 %.txt: %.xml
 	$(xml2rfc) $< -o $@ --text
+
+%.tree: %.yang
+	$(pyang) -f tree $< > $@
 
 ifeq "$(shell uname -s 2>/dev/null)" "Darwin"
 sed_i := sed -i ''

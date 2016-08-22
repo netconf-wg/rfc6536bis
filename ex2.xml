@@ -9,7 +9,7 @@
       <access-operations>*</access-operations>
       <action>deny</action>
       <comment>
-          Do not allow guests any access to the netconf 
+          Do not allow guests any access to the NETCONF
           monitoring information.
       </comment>
     </rule>
@@ -25,7 +25,7 @@
       <access-operations>read</access-operations>
       <action>permit</action>
       <comment>
-          Allow read access to the netconf 
+          Allow read access to the NETCONF
           monitoring information.
       </comment>
     </rule>
