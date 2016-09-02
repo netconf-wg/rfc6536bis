@@ -17,8 +17,11 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6021.xml'>
     <!ENTITY rfc6241 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
-    <!ENTITY I-D.ietf-netmod-rfc6020bis PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-netmod-rfc6020bis.xml'>
+    <!ENTITY rfc7950 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
+
+    <!ENTITY I-D.ietf-netconf-restconf PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-restconf.xml'>
     ]>
 
 <rfc category="std"
@@ -73,6 +76,7 @@
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
+  <keyword>RESTCONF</keyword>
   <keyword>YANG</keyword>
   <keyword>XML</keyword>
 
@@ -80,36 +84,37 @@
   <abstract>
    <t>
     The standardization of network configuration interfaces for use
-    with the Network Configuration Protocol (NETCONF) requires a
-    structured and secure
+    with the Network Configuration Protocol (NETCONF) or RESTCONF
+    protocol requires a structured and secure
     operating environment that promotes human usability and
     multi-vendor interoperability.  There is a need for standard
-    mechanisms to restrict NETCONF protocol access for particular
-    users to a pre-configured subset of all available NETCONF protocol
-    operations and content.  This document defines such an access
-    control model.
+    mechanisms to restrict NETCONF or RESTCONF protocol access for particular
+    users to a pre-configured subset of all available NETCONF or
+    RESTCONF protocol operations and content.
+    This document defines such an access control model.
    </t>
   </abstract>
  </front>
 
 
-
  <middle>
   <section title="Introduction">
     <t>
-      The NETCONF protocol does not provide any standard mechanisms to
-      restrict the protocol operations and content that each user is
-      authorized to access.
+      The NETCONF and RESTCONF protocols do not provide any standard
+      mechanisms to restrict the protocol operations and content that
+      each user is authorized to access.
     </t>
     <t>
       There is a need for interoperable management of the
       controlled access to administrator-selected portions of the
-      available NETCONF content within a particular server.
+      available NETCONF or RESTCONF content within a particular server.
     </t>
     <t>
       This document addresses access control mechanisms for the
       Operations and Content layers of NETCONF, as defined in <xref
-      target="RFC6241"/>.  It contains three main sections:
+      target="RFC6241"/>, and RESTCONF, as defined
+      in <xref target="I-D.ietf-netconf-restconf" />.
+      It contains three main sections:
       <list style="numbers">
         <t>Access Control Design Objectives</t>
         <t>NETCONF Access Control Model (NACM)</t>
@@ -117,7 +122,7 @@
       </list>
     </t>
     <t>
-      YANG version 1.1 <xref target="I-D.ietf-netmod-rfc6020bis"/>
+      YANG version 1.1 <xref target="RFC7950"/>
       adds two new constructs that need special access control
       handling. The "action" statement is similar to the "rpc"
       statement, except it is located within a data node.
@@ -148,12 +153,23 @@
 
       <t>
         The following terms are defined in
-        <xref target="I-D.ietf-netmod-rfc6020bis"/>.
+        <xref target="RFC7950"/>.
         and are not redefined here:
         <list style="symbols">
           <t>action</t>
           <t>data node</t>
           <t>data definition statement</t>
+        </list>
+      </t>
+
+      <t>
+        The following terms are defined in
+        <xref target="I-D.ietf-netconf-restconf"/>.
+        and are not redefined here:
+        <list style="symbols">
+          <t>data resource</t>
+          <t>datastore resource</t>
+          <t>operation resource</t>
         </list>
       </t>
 
@@ -181,6 +197,11 @@
             One of "none", "read", "create", "delete", "update", or
             "execute".
           </t>
+          <t hangText="data node hierarchy:">
+            The hierarchy of data nodes that identifies
+            the specific "action" or "notification" node
+            in the datastore.
+          </t>
           <t hangText="recovery session:">
             A special administrative session that is given
             unlimited NETCONF access and is exempt from all access
@@ -195,6 +216,32 @@
             access operations.
           </t>
         </list>
+      </t>
+    </section>
+
+    <section title="Changes Since RFC 6535">
+      <t>
+        The NACM procedures and data model have been updated
+        to support new data modeling capabilities in the
+        version 1.1. of the YANG data modeling language.
+        The "action" and "notification" statements can be used within
+        data nodes to define data-model specific operations and
+        notifications.
+      </t>
+      <t>
+        An important use-case for these new YANG
+        statements is the increased access control granularity
+        that can be achieved over top-level "rpc" and "notification"
+        statements.  The new "action" and "notification" statements
+        are used within data nodes, and access to the action or
+        notification can be restricted to specific instances
+        of these data nodes.
+      </t>
+      <t>
+        Support for the RESTCONF protocol has been added.
+        The RESTCONF operations are similar to the NETCONF operations,
+        so a simple mapping to the existing NACM procedures
+        and data model is possible.
       </t>
     </section>
   </section>
@@ -477,13 +524,19 @@
       <section title="External Dependencies">
         <t>
           The <xref target="RFC6241">NETCONF protocol</xref>
-          is used for all management purposes within this document.
+          is used for network management purposes within this document.
         </t>
         <t>
-          The <xref target="I-D.ietf-netmod-rfc6020bis">
+          The <xref target="I-D.ietf-netconf-restconf">RESTCONF protocol</xref>
+          is used for network management purposes within this document.
+        </t>
+        <t>
+          The <xref target="RFC7950">
             YANG Data Modeling Language</xref>
-          is used to define the NETCONF data models
-          specified in this document.
+          is used to define the data models for use
+          with the NETCONF or RESTCONF protocols.
+          YANG is also used to define the data model in
+          this document.
         </t>
       </section>
 
@@ -493,7 +546,27 @@
           flow model, including the points at which access
           control is applied during NETCONF message processing.
         </t>
-
+        <t>
+          The "action" and "rpc" statements are both considered
+          protocol operations, except authorization to invoke an action
+          also requires permission to read the data node instances
+          that represent the data node hierarchy for the action.
+        </t>
+        <t>
+          A top-level "notification" statement and a data node
+          "notification" statement are both subject to the notification
+          access control procedures, except authorization to
+          receive a data node notification also requires permission to
+          read the data node instances that represent the data node hierarchy
+          for the notification.
+        </t>
+        <t>
+          RESTCONF operations are mapped to the access control model
+          based on the HTTP method and resource class used in the operation.
+          For example, a POST method on a data resource is considered
+          "write data node" access, but a POST method on an operation
+          resource is considered "operation" access.
+        </t>
         <t>
           <figure anchor="NACM_model">
             <artwork>
@@ -508,33 +581,40 @@
           |   message    |     |   message     |
           | dispatcher   |     |   generator   |
           +--------------+     +---------------+
-               |                  ^         ^
-               V                  |         |
+            |      |               ^         ^
+            |      V               |         |
+            |  +=============+     |         |
+            |  | pre-read    |     |         |
+            |  | data node   |     |         |
+            |  | acc. ctl    |     |         |
+            |  +=============+     |         |
+            |    |                 |         |
+            V    V                 |         |
       +===========+     +-------------+   +----------------+
-      |   <rpc>   |---> | <rpc-reply> |   | <notification> |
+      | operation |---> |    reply    |   | <notification> |
       | acc. ctl  |     |  generator  |   |  generator     |
       +===========+     +-------------+   +----------------+
             |              ^    ^                ^
             V       +------+    |                |
       +-----------+ |   +=============+  +================+
-      |   <rpc>   | |   |    read     |  | <notification> |
+      | operation | |   |    read     |  | <notification> |
       | processor |-+   | data node   |  |  access ctl    |
       |           |     | acc. ctl    |  |                |
       +-----------+     +=============+  +================+
-            |   |                  ^        ^
-            V   +----------------+ |        |
-      +===========+              | |        |
-      |  write    |              | |        |
-      | data node |              | |        |
-      | acc. ctl  | -----------+ | |        |
-      +===========+            | | |        |
-            |                  | | |        |
-            V                  V V |        |
-      +---------------+      +-----------------+
-      | configuration | ---> |     server      |
-      |   datastore   |      | instrumentation |
-      |               | <--- |                 |
-      +---------------+      +-----------------+]]>
+            |   |                  ^       ^     ^
+            V   +----------------+ |       |     |
+      +===========+              | |       | +============+
+      |  write    |              | |       | | pre-read   |
+      | data node |              | |       | | data node  |
+      | acc. ctl  | -----------+ | |       | | acc. ctl   |
+      +===========+            | | |       | +============+
+            |                  | | |       |   ^
+            V                  V V |       |   |
+      +---------------+      +-------------------+
+      | configuration | ---> |      server       |
+      |   datastore   |      |  instrumentation  |
+      |               | <--- |                   |
+      +---------------+      +-------------------+]]>
             </artwork>
           </figure>
         </t>
@@ -546,12 +626,13 @@
 
            <t>
      For each active session, access control is applied individually to all
-     &lt;rpc&gt; messages (except &lt;close-session&gt;) received by the server, unless
+     &lt;rpc&gt; messages (except &lt;close-session&gt;)
+     received by the server, unless
      the session is identified as a recovery session.
            </t>
            <t>
              If the &lt;action&gt; operation defined in
-             <xref target="I-D.ietf-netmod-rfc6020bis"/> is invoked,
+             <xref target="RFC7950"/> is invoked,
              then read access is required for all instances in the
              hierarchy of data nodes that identifies the specific action
              in the datastore.
@@ -587,7 +668,7 @@
            <t>
              If the notification statement is specified within
              a data subtree, as specified in
-             <xref target="I-D.ietf-netmod-rfc6020bis"/>,
+             <xref target="RFC7950"/>,
              then read access is required for all instances in the
              hierarchy of data nodes that identifies the specific
              notification in the datastore.
@@ -1810,9 +1891,10 @@ m4_include(ietf-netconf-acm.yang)
     &rfc3688;
     &rfc5277;
     &rfc6020;
-    &I-D.ietf-netmod-rfc6020bis;
     &rfc6021;
     &rfc6241;
+    &rfc7950;
+    &I-D.ietf-netconf-restconf;
   </references>
 
   <references title="Informative References">
