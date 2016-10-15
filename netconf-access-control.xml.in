@@ -467,8 +467,8 @@
           The NACM data model provides the following features:
           <list style="symbols">
             <t>
-              Independent control of remote procedure call (RPC), data, and notification
-              access.
+              Independent control of remote procedure call (RPC),
+              action, data, and notification access.
             </t>
             <t>
               Simple access control rules configuration
@@ -698,7 +698,11 @@
         and startup) are controlled by NACM.  Local or remote
         files or datastores accessed via the &lt;url&gt;
         parameter are not controlled by NACM.
+        A standalone RESTCONF server (i.e., not co-located with a
+        NETCONF server) applies NACM rules to a conceptual datastore,
+        since datastores are not supported in RESTCONF.
       </t>
+
       <section title="Access Rights">
         <t>
           A small set of hard-wired datastore access rights is needed
@@ -710,26 +714,97 @@
           protocol operations:
           <list style="symbols">
             <t>
-              Create:  allows the client to add a new data node
+              Create: allows the client to add a new data node
               instance to a datastore.
             </t>
             <t>
-              Read:  allows the client to read a data node instance
+              Read: allows the client to read a data node instance
               from a datastore or receive the notification event type.
             </t>
             <t>
-              Update:  allows the client to update an existing data
+              Update: allows the client to update an existing data
               node instance in a datastore.
             </t>
             <t>
-              Delete:  allows the client to delete a data node
+              Delete: allows the client to delete a data node
               instance from a datastore.
             </t>
             <t>
-              eXec:  allows the client to execute the protocol operation.
+              eXec: allows the client to execute the protocol operation.
             </t>
           </list>
         </t>
+      </section>
+
+      <section title="RESTCONF Methods">
+        <t>
+          The RESTCONF protocol utilizes HTTP methods to perform
+          datastore operations, similar to the NETCONF protocol.
+          The NACM procedures were originally written for
+          NETCONF protocol operations so the RESTCONF methods
+          are mapped to NETCONF operations for the purpose of
+          access control processing.  The enforcement procedures
+          described within this document apply to both protocols
+          unless explicitly stated otherwise.
+        </t>
+        <t>
+          Not all RESTCONF methods are subject to access control.
+          The following table specifies how each method is
+          mapped to NETCONF protocol operations. The value 'none'
+          indicates that NACM is not applied at all to the specific
+          RESTCONF method.
+        </t>
+        <texttable anchor="restconf_method_table"
+                   title="Mapping RESTCONF Methods to NETCONF">
+          <ttcol align='left'>method</ttcol>
+          <ttcol align='left'>resource class</ttcol>
+          <ttcol align='left'>NETCONF operation</ttcol>
+          <ttcol align='left'>Edit operation</ttcol>
+          <c>OPTIONS</c>
+          <c>all</c>
+          <c>none</c>
+          <c>N/A</c>
+
+          <c>HEAD</c>
+          <c>all</c>
+          <c>&lt;get&gt;</c>
+          <c>N/A</c>
+
+          <c>GET</c>
+          <c>all</c>
+          <c>&lt;get&gt;</c>
+          <c>N/A</c>
+
+          <c>POST</c>
+          <c>datastore, data</c>
+          <c>&lt;edit-config&gt;</c>
+          <c>create</c>
+
+          <c>POST</c>
+          <c>operation</c>
+          <c>specified operation</c>
+          <c>N/A</c>
+
+          <c>PUT</c>
+          <c>data</c>
+          <c>&lt;edit-config&gt;</c>
+          <c>create, replace</c>
+
+          <c>PUT</c>
+          <c>datastore</c>
+          <c>&lt;copy-config&gt;</c>
+          <c>replace</c>
+
+          <c>PATCH</c>
+          <c>data, datastore</c>
+          <c>&lt;edit-config&gt;</c>
+          <c>merge</c>
+
+          <c>DELETE</c>
+          <c>data</c>
+          <c>&lt;edit-config&gt;</c>
+          <c>delete</c>
+        </texttable>
       </section>
 
       <section title="&lt;get&gt; and &lt;get-config&gt; Operations">
