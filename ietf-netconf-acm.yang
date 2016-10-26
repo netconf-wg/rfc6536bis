@@ -28,7 +28,7 @@ module ietf-netconf-acm {
      Editor:   Martin Bjorklund
                <mailto:mbj@tail-f.com>";
 
-  description 
+  description
     "NETCONF Access Control Model.
 
      Copyright (c) 2012, 2016 IETF Trust and the persons
@@ -47,7 +47,7 @@ module ietf-netconf-acm {
   revision "2016-08-21" {
     description
       "Second version";
-    reference 
+    reference
       "RFC XXXX: Network Configuration Protocol (NETCONF)
                  Access Control Model";
   }
@@ -55,7 +55,7 @@ module ietf-netconf-acm {
   revision "2012-02-22" {
     description
       "Initial version";
-    reference 
+    reference
       "RFC 6536: Network Configuration Protocol (NETCONF)
                  Access Control Model";
   }
@@ -66,7 +66,7 @@ module ietf-netconf-acm {
 
   extension default-deny-write {
     description
-      "Used to indicate that the data model node 
+      "Used to indicate that the data model node
        represents a sensitive security system parameter.
 
        If present, and the NACM module is enabled (i.e.,
@@ -81,7 +81,7 @@ module ietf-netconf-acm {
 
   extension default-deny-all {
     description
-      "Used to indicate that the data model node 
+      "Used to indicate that the data model node
        controls a very sensitive security system parameter.
 
        If present, and the NACM module is enabled (i.e.,
@@ -116,7 +116,7 @@ module ietf-netconf-acm {
        to conceptually represent all possible values
        for the particular leaf using this data type.";
   }
-  
+
   typedef access-operations-type {
     type bits {
       bit create {
@@ -143,7 +143,7 @@ module ietf-netconf-acm {
           "Execution access to the specified protocol operation.";
       }
     }
-    description 
+    description
       "NETCONF Access Operation.";
   }
 
@@ -152,7 +152,7 @@ module ietf-netconf-acm {
       length "1..max";
       pattern '[^\*].*';
     }
-    description 
+    description
       "Name of administrative group to which
        users can be assigned.";
   }
@@ -176,10 +176,11 @@ module ietf-netconf-acm {
   typedef node-instance-identifier {
     type yang:xpath1.0;
     description
-      "Path expression used to represent a special 
-       data node instance identifier string.
-     
-       A node-instance-identifier value is an 
+      "Path expression used to represent a special
+       data node, action, or notification instance identifier
+       string.
+
+       A node-instance-identifier value is an
        unrestricted YANG instance-identifier expression.
        All the same rules as an instance-identifier apply
        except predicates for keys are optional.  If a key
@@ -199,7 +200,10 @@ module ietf-netconf-acm {
            note that due to the syntax restrictions of an
            instance-identifier, no functions are allowed.
 
-        o  The context node is the root node in the data tree.";
+        o  The context node is the root node in the data tree.
+
+        The accessible tree includes actions and notifications tied to
+        data nodes.";
   }
 
   /*
@@ -220,7 +224,7 @@ module ietf-netconf-acm {
          enforcement.  If 'true', then enforcement
          is enabled.  If 'false', then enforcement
          is disabled.";
-    } 
+    }
 
     leaf read-default {
       type action-type;
@@ -264,7 +268,7 @@ module ietf-netconf-acm {
       config false;
       mandatory true;
       description
-        "Number of times since the server last restarted that a 
+        "Number of times since the server last restarted that a
          protocol operation request was denied.";
     }
 
@@ -273,7 +277,7 @@ module ietf-netconf-acm {
       config false;
       mandatory true;
       description
-        "Number of times since the server last restarted that a 
+        "Number of times since the server last restarted that a
          protocol operation request to alter
          a configuration datastore was denied.";
     }
@@ -283,8 +287,8 @@ module ietf-netconf-acm {
       config false;
       mandatory true;
       description
-        "Number of times since the server last restarted that 
-         a notification was dropped for a subscription because 
+        "Number of times since the server last restarted that
+         a notification was dropped for a subscription because
          access to the event type was denied.";
     }
 
@@ -302,15 +306,15 @@ module ietf-netconf-acm {
 
         leaf name {
           type group-name-type;
-          description 
+          description
             "Group name associated with this entry.";
         }
 
         leaf-list user-name {
           type user-name-type;
-          description 
-            "Each entry identifies the username of 
-             a member of the group associated with 
+          description
+            "Each entry identifies the username of
+             a member of the group associated with
              this entry.";
         }
       }
@@ -321,7 +325,7 @@ module ietf-netconf-acm {
       ordered-by user;
       description
         "An ordered collection of access control rules.";
-      
+
       leaf name {
         type string {
           length "1..max";
@@ -362,7 +366,7 @@ module ietf-netconf-acm {
           description
             "Arbitrary name assigned to the rule.";
         }
-        
+
         leaf module-name {
           type union {
             type matchall-string-type;
@@ -412,12 +416,12 @@ module ietf-netconf-acm {
                 "Data Node Instance Identifier associated with the
                  data node controlled by this rule.
 
-                 Configuration data or state data instance 
+                 Configuration data or state data instance
                  identifiers start with a top-level data node.  A
                  complete instance identifier is required for this
                  type of path value.
 
-                 The special value '/' refers to all possible 
+                 The special value '/' refers to all possible
                  datastore contents.";
             }
           }
@@ -446,7 +450,7 @@ module ietf-netconf-acm {
              to determine whether to permit or deny the
              request.";
         }
-        
+
         leaf comment {
           type string;
           description

@@ -25,6 +25,7 @@
     ]>
 
 <rfc category="std"
+     obsoletes="6536"
      docName="draft-bierman-netconf-rfc6536bis-latest"
      ipr="trust200902">
 
@@ -92,6 +93,9 @@
     users to a pre-configured subset of all available NETCONF or
     RESTCONF protocol operations and content.
     This document defines such an access control model.
+   </t>
+   <t>
+     This document obsoletes RFC 6536.
    </t>
   </abstract>
  </front>
@@ -547,20 +551,6 @@
           control is applied during NETCONF message processing.
         </t>
         <t>
-          The "action" and "rpc" statements are both considered
-          protocol operations, except authorization to invoke an action
-          also requires permission to read the data node instances
-          that represent the data node hierarchy for the action.
-        </t>
-        <t>
-          A top-level "notification" statement and a data node
-          "notification" statement are both subject to the notification
-          access control procedures, except authorization to
-          receive a data node notification also requires permission to
-          read the data node instances that represent the data node hierarchy
-          for the notification.
-        </t>
-        <t>
           RESTCONF operations are mapped to the access control model
           based on the HTTP method and resource class used in the operation.
           For example, a POST method on a data resource is considered
@@ -631,27 +621,28 @@
      the session is identified as a recovery session.
            </t>
            <t>
-             If the &lt;action&gt; operation defined in
-             <xref target="RFC7950"/> is invoked,
-             then read access is required for all instances in the
-             hierarchy of data nodes that identifies the specific action
-             in the datastore.
-             If the user is authorized to read all the specified
-             data nodes, then processing continues; otherwise,
-             the request is rejected with an "access-denied" error.
+             If the &lt;action&gt; operation defined in <xref
+             target="RFC7950"/> is invoked, then read access is
+             required for all instances in the hierarchy of data nodes
+             that identifies the specific action in the datastore, and
+             execute access is required for the action node.  If the
+             user is not authorized to read all the specified data
+             nodes and execute the action, then the request is
+             rejected with an "access-denied" error.
            </t>
            <t>
-             If the user is authorized to execute the specified protocol
-             operation or action, then processing continues; otherwise,
-             the request is rejected with an "access-denied" error.
+             Otherwise, if the user is not authorized to execute the
+             specified protocol operation, then the request is
+             rejected with an "access-denied" error.
            </t>
            <t>
              If the configuration datastore or conceptual state data
              is accessed by the protocol operation, then the server
              checks if the client is authorized to access the nodes in
-             the datastore.  If the user is authorized to perform the
-             requested access operation on the requested data, then
-             processing continues.
+             the datastore.  If the user is not authorized to perform
+             the requested access operation on the requested data,
+             then the request is rejected with an "access-denied"
+             error.
            </t>
          </list>
        </t>
@@ -666,21 +657,22 @@
              for a particular subscription.
            </t>
            <t>
-             If the notification statement is specified within
-             a data subtree, as specified in
-             <xref target="RFC7950"/>,
-             then read access is required for all instances in the
+             If the notification statement is specified within a data
+             subtree, as specified in <xref target="RFC7950"/>, then
+             read access is required for all instances in the
              hierarchy of data nodes that identifies the specific
-             notification in the datastore.
-             If the user is authorized to read all the specified
-             data nodes, then processing continues; otherwise,
-             the request is rejected with an "access-denied" error.
+             notification in the datastore, and read access is
+             required for the notification node.  If the user is not
+             authorized to read all the specified data nodes and the
+             notification node, then the notification is dropped for
+             that subscription.
            </t>
            <t>
-             The notification access control enforcer checks the
-             notification event type, and if it is one that
-             the user is not authorized to read, then the
-             notification is dropped for that subscription.
+             If the notification statement is a top-level statement,
+             the notification access control enforcer checks the
+             notification event type, and if it is one that the user
+             is not authorized to read, then the notification is
+             dropped for that subscription.
            </t>
          </list>
        </t>
@@ -730,7 +722,7 @@
               instance from a datastore.
             </t>
             <t>
-              eXec: allows the client to execute the protocol operation.
+              eXec: allows the client to execute the operation.
             </t>
           </list>
         </t>
@@ -1319,7 +1311,6 @@ target="message-proc-model" />).
            </t>
            <t>
              If no groups are found, continue with step 10.
-
            </t>
            <t>
              Process all rule-list entries, in the order they
@@ -1412,10 +1403,22 @@ target="message-proc-model" />).
 
      <section title="Data Node Access Validation" anchor="node-access">
        <t>
-         If a data node within a datastore is accessed, then the
+         If a data node within a datastore is accessed, or an action
+         or notification tied to a data node, then the
          server MUST ensure that the user is authorized to
-         perform the requested "read", "create", "update", or "delete"
+         perform the requested "read", "create", "update", "delete",
+         or "execute"
          access operation on the specified data node.
+       </t>
+       <t>
+         If an action is requested to be executed, the server MUST
+         ensure that the user is authorized to perform the "execute"
+         access operation on the requested action.
+       </t>
+       <t>
+         If a notification tied to a data node is generated, the server MUST
+         ensure that the user is authorized to perform the "read"
+         access operation on the requested notification.
        </t>
        <t>
          The data node access request is authorized by following
@@ -1459,7 +1462,7 @@ target="message-proc-model" />).
                <t>
                  The rule does not have a "rule-type" defined or the
                  "rule-type" is "data-node" and the "path" matches the
-                 requested data node.
+                 requested data node, action node, or notification node.
                </t>
                <t>
                  For a "read" access operation, the rule's
@@ -1479,6 +1482,11 @@ target="message-proc-model" />).
                <t>
                  For an "update" access operation, the rule's
                  "access-operations" leaf has the "update" bit set or
+                 has the special value "*".
+               </t>
+               <t>
+                 For an "execute" access operation, the rule's
+                 "access-operations" leaf has the "exec" bit set or
                  has the special value "*".
                </t>
              </list>
@@ -1518,6 +1526,11 @@ target="message-proc-model" />).
              to "permit", then permit the data node access request;
              otherwise, deny the request.
            </t>
+           <t>
+             For an "execute" access operation, if the "exec-default"
+             leaf is set to "permit", then permit the request;
+             otherwise, deny the request.
+           </t>
          </list>
        </t>
      </section>
@@ -1530,6 +1543,12 @@ target="message-proc-model" />).
          If the user is authorized to receive the
          notification event type, then it is also
          authorized to receive any data it contains.
+       </t>
+       <t>
+         If the notification is specified within a data subtree, as
+         specified in <xref target="RFC7950"/>, then read access to
+         the notification is required.  Processing continues as
+         described in <xref target="node-access"/>.
        </t>
        <t>
          The following figure shows the conceptual message processing
