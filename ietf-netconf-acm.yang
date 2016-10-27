@@ -16,16 +16,10 @@ module ietf-netconf-acm {
     "WG Web:   <http://tools.ietf.org/wg/netconf/>
      WG List:  <mailto:netconf@ietf.org>
 
-     WG Chair: Mehmet Ersue
-               <mailto:mehmet.ersue@nsn.com>
-
-     WG Chair: Bert Wijnen
-               <mailto:bertietf@bwijnen.net>
-
-     Editor:   Andy Bierman
+     Author:   Andy Bierman
                <mailto:andy@yumaworks.com>
 
-     Editor:   Martin Bjorklund
+     Author:   Martin Bjorklund
                <mailto:mbj@tail-f.com>";
 
   description
@@ -44,7 +38,7 @@ module ietf-netconf-acm {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision "2016-08-21" {
+  revision "2016-08-26" {
     description
       "Second version";
     reference

@@ -13,10 +13,10 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5607.xml'>
     <!ENTITY rfc6020 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml'>
-    <!ENTITY rfc6021 PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6021.xml'>
     <!ENTITY rfc6241 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
+    <!ENTITY rfc6991 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml'>
     <!ENTITY rfc7950 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
 
@@ -73,7 +73,7 @@
    </address>
   </author>
 
-  <date month="August" day="21" year="2016" />
+  <date month="October" day="26" year="2016" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -1710,7 +1710,7 @@ m4_include(ietf-netconf-acm.tree)
        </t>
        <t>
          The "ietf-netconf-acm" YANG module imports typedefs from <xref
-         target="RFC6021"/>.
+         target="RFC6991"/>.
        </t>
        <t>
          <figure anchor="YANG_module">
@@ -1719,7 +1719,7 @@ m4_include(ietf-netconf-acm.tree)
 <!-- errata 3863 applied in group-name-type below -->
 
            <artwork><![CDATA[
-<CODE BEGINS> file "ietf-netconf-acm@2016-08-21.yang"
+<CODE BEGINS> file "ietf-netconf-acm@2016-08-26.yang"
 m4_include(ietf-netconf-acm.yang)
 <CODE ENDS>
              ]]></artwork>
@@ -1985,8 +1985,8 @@ m4_include(ietf-netconf-acm.yang)
     &rfc3688;
     &rfc5277;
     &rfc6020;
-    &rfc6021;
     &rfc6241;
+    &rfc6991;
     &rfc7950;
     &I-D.ietf-netconf-restconf;
   </references>
@@ -2196,4 +2196,3 @@ m4_include(ex5.xml)
  </back>
 
 </rfc>
-
