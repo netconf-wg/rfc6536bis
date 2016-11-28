@@ -73,7 +73,7 @@
    </address>
   </author>
 
-  <date month="October" day="26" year="2016" />
+  <date month="November" day="28" year="2016" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -738,6 +738,35 @@
           access control processing.  The enforcement procedures
           described within this document apply to both protocols
           unless explicitly stated otherwise.
+        </t>
+        <t>
+          The request URI needs to be considered when processing
+          RESTCONF requests on data resources:
+          <list style="symbols">
+            <t>
+              For HEAD and GET requests, any data nodes
+              which are ancestor nodes of the target resource are
+              considered to be part of the retrieval request for
+              access control purposes.
+            </t>
+            <t>
+              For PUT, PATCH, and DELETE requests, any data nodes
+              which are ancestor nodes of the target resource are not
+              considered to be part of the edit request for access
+              control purposes. The edit operation for these nodes is
+              considered to be 'none'. The edit begins at the
+              target resource.
+            </t>
+            <t>
+              For POST requests on data resources, any data nodes
+              which are specified in the target URI, including the
+              target resource, are not considered to be part of the
+              edit request for access control purposes.
+              The edit operation for these nodes is considered
+              to be 'none'. The edit begins at a child
+              node of the target resource, specified in the message body.
+            </t>
+          </list>
         </t>
         <t>
           Not all RESTCONF methods are subject to access control.
