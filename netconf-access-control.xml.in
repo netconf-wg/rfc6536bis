@@ -5,8 +5,10 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
     <!ENTITY rfc2865 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2865.xml'>
+<!--
     <!ENTITY rfc3688 PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'>
+    'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'>
+    -->
     <!ENTITY rfc5277 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5277.xml'>
     <!ENTITY rfc5607 PUBLIC ''
@@ -17,6 +19,8 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
     <!ENTITY rfc6991 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml'>
+    <!ENTITY rfc7230 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml'>
     <!ENTITY rfc7950 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
 
@@ -73,7 +77,7 @@
    </address>
   </author>
 
-  <date month="November" day="28" year="2016" />
+  <date month="November" day="29" year="2016" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -157,7 +161,7 @@
 
       <t>
         The following terms are defined in
-        <xref target="RFC7950"/>.
+        <xref target="RFC7950"/>
         and are not redefined here:
         <list style="symbols">
           <t>action</t>
@@ -168,12 +172,21 @@
 
       <t>
         The following terms are defined in
-        <xref target="I-D.ietf-netconf-restconf"/>.
+        <xref target="I-D.ietf-netconf-restconf"/>
         and are not redefined here:
         <list style="symbols">
           <t>data resource</t>
           <t>datastore resource</t>
           <t>operation resource</t>
+          <t>target resource</t>
+        </list>
+      </t>
+
+      <t>
+        The following term is defined in <xref target="RFC7230"/>
+        and is not redefined here:
+        <list style="symbols">
+          <t>request URI</t>
         </list>
       </t>
 
@@ -759,7 +772,7 @@
             </t>
             <t>
               For POST requests on data resources, any data nodes
-              which are specified in the target URI, including the
+              which are specified in the request URI, including the
               target resource, are not considered to be part of the
               edit request for access control purposes.
               The edit operation for these nodes is considered
@@ -1760,28 +1773,22 @@ m4_include(ietf-netconf-acm.yang)
 
    <section anchor="IANA" title="IANA Considerations">
      <t>
-       This document registers one URI in "The IETF XML Registry".
-       Following the format in <xref target="RFC3688"/>,
-       the following has been registered.
+       This document reuses the URI for "ietf-netconf-acm"
+       in "The IETF XML Registry".
      </t>
      <t>
-       <figure>
-         <artwork><![CDATA[     URI: urn:ietf:params:xml:ns:yang:ietf-netconf-acm
-     Registrant Contact: The IESG.
-     XML: N/A, the requested URI is an XML namespace.
-             ]]></artwork>
-       </figure>
-     </t>
-     <t>
-       This document registers one module in the "YANG Module Names"
-       registry.  Following the format in <xref target="RFC6020" />,
+       This document updates the module registration in the
+       "YANG Module Names" registry to reference
+       this RFC instead of RFC 6536.
+
+       Following the format in <xref target="RFC6020" />,
        the following has been registered.
 
        <figure>
          <artwork><![CDATA[     Name: ietf-netconf-acm
      Namespace: urn:ietf:params:xml:ns:yang:ietf-netconf-acm
      Prefix: nacm
-     reference: RFC 6536
+     reference: RFC XXXX
              ]]></artwork>
        </figure>
      </t>
@@ -2011,11 +2018,12 @@ m4_include(ietf-netconf-acm.yang)
  <back>
   <references title="Normative References">
     &rfc2119;
-    &rfc3688;
+<!--    &rfc3688;  -->
     &rfc5277;
     &rfc6020;
     &rfc6241;
     &rfc6991;
+    &rfc7230;
     &rfc7950;
     &I-D.ietf-netconf-restconf;
   </references>
@@ -2026,6 +2034,37 @@ m4_include(ietf-netconf-acm.yang)
   </references>
 
 
+  <section title="Change Log">
+
+    <figure>
+      <artwork>
+        <![CDATA[
+    -- RFC Ed.: remove this section before publication.
+        ]]></artwork>
+    </figure>
+
+    <t>
+      The NACM issue tracker can be found here:
+      https://github.com/netconf-wg/rfc6536bis/issues
+    </t>
+
+    <section title="v00 to v01">
+      <t>
+      <list style="symbols">
+        <t>
+          Update terminology section.
+        </t>
+        <t>
+          Add paragraph to map RESTCONF request URI to NACM procedures.
+        </t>
+        <t>
+          Update IANA considerations.
+        </t>
+      </list>
+      </t>
+    </section>
+
+  </section>
 
   <section title="Usage Examples">
     <t>
