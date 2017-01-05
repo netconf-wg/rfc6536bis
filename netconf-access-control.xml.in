@@ -30,7 +30,7 @@
 
 <rfc category="std"
      obsoletes="6536"
-     docName="draft-bierman-netconf-rfc6536bis-latest"
+     docName="draft-ietf-netconf-rfc6536bis-latest"
      ipr="trust200902">
 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -77,7 +77,7 @@
    </address>
   </author>
 
-  <date month="November" day="29" year="2016" />
+  <date month="January" day="5" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -1761,7 +1761,7 @@ m4_include(ietf-netconf-acm.tree)
 <!-- errata 3863 applied in group-name-type below -->
 
            <artwork><![CDATA[
-<CODE BEGINS> file "ietf-netconf-acm@2016-08-26.yang"
+<CODE BEGINS> file "ietf-netconf-acm@2017-01-05.yang"
 m4_include(ietf-netconf-acm.yang)
 <CODE ENDS>
              ]]></artwork>
@@ -2048,17 +2048,12 @@ m4_include(ietf-netconf-acm.yang)
       https://github.com/netconf-wg/rfc6536bis/issues
     </t>
 
-    <section title="v00 to v01">
+    <section title="v00">
       <t>
       <list style="symbols">
         <t>
-          Update terminology section.
-        </t>
-        <t>
-          Add paragraph to map RESTCONF request URI to NACM procedures.
-        </t>
-        <t>
-          Update IANA considerations.
+          Renamed document from draft-bierman-netconf-rfc6536bis-01
+          to draft-ietf-netconf-rfc6536bis-00.
         </t>
       </list>
       </t>

@@ -12,7 +12,7 @@ pyang ?= pyang
 
 draft := $(basename $(lastword $(sort $(wildcard draft-*.xml)) $(sort $(wildcard draft-*.md)) $(sort $(wildcard draft-*.org)) ))
 
-draft = draft-bierman-netconf-rfc6536bis
+draft = draft-ietf-netconf-rfc6536bis
 
 ifeq (,$(draft))
 $(warning No file named draft-*.md or draft-*.xml or draft-*.org)

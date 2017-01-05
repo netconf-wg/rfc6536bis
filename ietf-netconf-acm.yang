@@ -25,7 +25,7 @@ module ietf-netconf-acm {
   description
     "NETCONF Access Control Model.
 
-     Copyright (c) 2012, 2016 IETF Trust and the persons
+     Copyright (c) 2012, 2017 IETF Trust and the persons
      identified as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -38,7 +38,7 @@ module ietf-netconf-acm {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision "2016-08-26" {
+  revision "2017-01-05" {
     description
       "Second version";
     reference
