@@ -24,8 +24,8 @@
     <!ENTITY rfc7950 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml'>
 
-    <!ENTITY I-D.ietf-netconf-restconf PUBLIC ''
-      'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-restconf.xml'>
+    <!ENTITY rfc8040 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'>
     ]>
 
 <rfc category="std"
@@ -77,7 +77,7 @@
    </address>
   </author>
 
-  <date month="January" day="5" year="2017" />
+  <date month="March" day="10" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -121,7 +121,7 @@
       This document addresses access control mechanisms for the
       Operations and Content layers of NETCONF, as defined in <xref
       target="RFC6241"/>, and RESTCONF, as defined
-      in <xref target="I-D.ietf-netconf-restconf" />.
+      in <xref target="RFC8040" />.
       It contains three main sections:
       <list style="numbers">
         <t>Access Control Design Objectives</t>
@@ -172,7 +172,7 @@
 
       <t>
         The following terms are defined in
-        <xref target="I-D.ietf-netconf-restconf"/>
+        <xref target="RFC8040"/>
         and are not redefined here:
         <list style="symbols">
           <t>data resource</t>
@@ -544,7 +544,7 @@
           is used for network management purposes within this document.
         </t>
         <t>
-          The <xref target="I-D.ietf-netconf-restconf">RESTCONF protocol</xref>
+          The <xref target="RFC8040">RESTCONF protocol</xref>
           is used for network management purposes within this document.
         </t>
         <t>
@@ -1713,8 +1713,8 @@ target="message-proc-model" />).
              YANG module
              advertised in the server capabilities and the
              "notification" statement contains a
-             "nacm:default-deny-all" statement, then the notification is
-             dropped for the associated subscription.
+             "nacm:default-deny-all" statement, then the notification
+             is dropped for the associated subscription.
            </t>
            <t>
              If the "read-default" leaf is set to "permit", then
@@ -2025,7 +2025,7 @@ m4_include(ietf-netconf-acm.yang)
     &rfc6991;
     &rfc7230;
     &rfc7950;
-    &I-D.ietf-netconf-restconf;
+    &rfc8040;
   </references>
 
   <references title="Informative References">
@@ -2047,6 +2047,16 @@ m4_include(ietf-netconf-acm.yang)
       The NACM issue tracker can be found here:
       https://github.com/netconf-wg/rfc6536bis/issues
     </t>
+
+    <section title="v00 to v01">
+      <t>
+      <list style="symbols">
+        <t>
+          Updated RESTCONF reference
+        </t>
+      </list>
+      </t>
+    </section>
 
     <section title="v00">
       <t>
