@@ -236,7 +236,7 @@
       </t>
     </section>
 
-    <section title="Changes Since RFC 6535">
+    <section title="Changes Since RFC 6536">
       <t>
         The NACM procedures and data model have been updated
         to support new data modeling capabilities in the
@@ -2047,6 +2047,16 @@ m4_include(ietf-netconf-acm.yang)
       The NACM issue tracker can be found here:
       https://github.com/netconf-wg/rfc6536bis/issues
     </t>
+
+    <section title="v01 to v02">
+      <t>
+      <list style="symbols">
+        <t>
+          Correct section title for changes since RFC 6536
+        </t>
+      </list>
+      </t>
+    </section>
 
     <section title="v00 to v01">
       <t>
