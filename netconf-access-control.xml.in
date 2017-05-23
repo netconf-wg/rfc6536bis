@@ -708,6 +708,28 @@
         NETCONF server) applies NACM rules to a conceptual datastore,
         since datastores are not supported in RESTCONF.
       </t>
+
+      <section title="Mapping New Datastores to NACM">
+        <t>
+          It is possible that new datastores will be defined
+          over time for use with the NETCONF protocol.
+          NACM MAY be applied to other datastores that have
+          similar access rights as defined in NACM.
+
+          To apply NACM to a new datastore, the new datastore
+          specification needs to define how it maps to the NACM CRUDX
+          access rights. It is possible only a subset of the NACM access
+          rights would be applicable. For example, only retrieval access
+          control would be needed for a read-only datastore.
+
+          Operations and access rights not supported by the NACM CRUDX
+          model are outside the scope of this document.
+          A datastore does not need to use NACM, e.g., the datastore
+          specification defines something else, or does not use
+          access control.
+        </t>
+      </section>
+
       <section title="Access Rights">
         <t>
           A small set of hard-wired datastore access rights is needed
@@ -839,27 +861,6 @@
           <c>&lt;edit-config&gt;</c>
           <c>delete</c>
         </texttable>
-      </section>
-
-      <section title="Mapping New Datastores to NACM">
-        <t>
-          It is possible that new datastores will be defined
-          over time for use with the NETCONF protocol.
-          NACM MAY be applied to other datastores that have
-          similar access rights as defined in NACM.
-
-          To apply NACM to a new datastore, the new datastore
-          specification needs to define how it maps to the NACM CRUDX
-          access rights. It is possible only a subset of the NACM access
-          rights would be applicable. For example, only retrieval access
-          control would be needed for a read-only datastore.
-
-          Operations and access rights not supported by the NACM CRUDX
-          model are outside the scope of this document.
-          A datastore does not need to use NACM, e.g., the datastore
-          specification defines something else, or does not use
-          access control.
-        </t>
       </section>
 
       <section title="&lt;get&gt; and &lt;get-config&gt; Operations">
@@ -1256,7 +1257,7 @@ target="message-proc-model" />).
          request is initiated from a user session.
          Access control is not enforced for
          server-initiated access requests, such as the
-         initial load of the running datastore, during bootup.
+         initial load of the running configuration datastore, during bootup.
        </t>
      </section>
 
@@ -1875,7 +1876,7 @@ m4_include(ietf-netconf-acm.yang)
          and /nacm/rule-list/rule)
          are ordered by the client.  The server will evaluate the
          access control rules according to their relative conceptual order
-         within the running datastore configuration.
+         within the running configuration datastore.
        </t>
        <t>
          Note that the /nacm/groups data structure contains
