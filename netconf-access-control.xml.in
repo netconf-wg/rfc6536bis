@@ -342,7 +342,7 @@
       <t>
         Access control ought to be defined with a small and familiar
         set of permissions, while still allowing full control
-        of NETCONF datastore access.
+        of datastore access.
       </t>
     </section>
     <section title="Procedural Interface">
@@ -356,7 +356,7 @@
     <section title="Datastore Access">
       <t>
         It is necessary to control access to specific nodes and
-        subtrees within the NETCONF datastore, regardless of which
+        subtrees within the datastore, regardless of which
         protocol operation, standard or proprietary, was used to
         access the datastore.
       </t>
@@ -704,9 +704,6 @@
         and startup) are controlled by NACM.  Local or remote
         files or datastores accessed via the &lt;url&gt;
         parameter are not controlled by NACM.
-        A standalone RESTCONF server (i.e., not co-located with a
-        NETCONF server) applies NACM rules to a conceptual datastore,
-        since datastores are not supported in RESTCONF.
       </t>
 
       <section title="Mapping New Datastores to NACM">
@@ -2076,6 +2073,12 @@ m4_include(ietf-netconf-acm.yang)
         </t>
         <t>
           Add section 'Mapping New Datastores to NACM'
+        </t>
+        <t>
+          Change term NETCONF datastore to datastore
+        </t>
+        <t>
+          Remove text about RESTCONF and a conceptual datastore
         </t>
       </list>
       </t>
