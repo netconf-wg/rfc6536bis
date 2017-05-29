@@ -26,6 +26,10 @@
 
     <!ENTITY rfc8040 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'>
+
+    <!ENTITY I-D.ietf-netmod-revised-datastores PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-revised-datastores-02.xml'>
+
     ]>
 
 <rfc category="std"
@@ -147,13 +151,27 @@
 
       <t>
         The following terms are defined in
+        <xref target="I-D.ietf-netmod-revised-datastores"/> and
+        are not redefined here:
+        <list style="symbols">
+          <t>datastore</t>
+          <t>configuration datastore</t>
+          <t>conventional configuration datastore</t>
+          <t>candidate configuration datastore</t>
+          <t>running configuration datastore</t>
+          <t>startup configuration datastore</t>
+          <t>operational state datastore</t>
+          <t>client</t>
+          <t>server</t>
+        </list>
+      </t>
+
+      <t>
+        The following terms are defined in
         <xref target="RFC6241"/> and
         are not redefined here:
         <list style="symbols">
-          <t>client</t>
-          <t>datastore</t>
           <t>protocol operation</t>
-          <t>server</t>
           <t>session</t>
           <t>user</t>
         </list>
@@ -649,7 +667,7 @@
              rejected with an "access-denied" error.
            </t>
            <t>
-             If the configuration datastore or conceptual state data
+             If a datastore
              is accessed by the protocol operation, then the server
              checks if the client is authorized to access the nodes in
              the datastore.  If the user is not authorized to perform
@@ -700,10 +718,10 @@
         configuration datastore.
       </t>
       <t>
-        Only the standard NETCONF datastores (e.g., candidate, running,
-        and startup) are controlled by NACM.  Local or remote
-        files or datastores accessed via the &lt;url&gt;
-        parameter are not controlled by NACM.
+        All conventional configuration datastores and the operational
+        state datastore are controlled by NACM.  Local or remote files
+        or datastores accessed via the &lt;url&gt; parameter are not
+        controlled by NACM.
       </t>
 
       <section title="Mapping New Datastores to NACM">
@@ -1778,7 +1796,7 @@ m4_include(ietf-netconf-acm.tree)
 <!-- errata 3863 applied in group-name-type below -->
 
            <artwork><![CDATA[
-<CODE BEGINS> file "ietf-netconf-acm@2017-01-05.yang"
+<CODE BEGINS> file "ietf-netconf-acm@2017-05-29.yang"
 m4_include(ietf-netconf-acm.yang)
 <CODE ENDS>
              ]]></artwork>
@@ -2043,6 +2061,7 @@ m4_include(ietf-netconf-acm.yang)
     &rfc7230;
     &rfc7950;
     &rfc8040;
+    &I-D.ietf-netmod-revised-datastores;
   </references>
 
   <references title="Informative References">

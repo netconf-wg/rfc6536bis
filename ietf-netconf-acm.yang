@@ -38,9 +38,10 @@ module ietf-netconf-acm {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision "2017-01-05" {
+  revision "2017-05-29" {
     description
-      "Second version";
+      "Added support for YANG 1.1 actions and notifications tied to
+       data nodes.";
     reference
       "RFC XXXX: Network Configuration Protocol (NETCONF)
                  Access Control Model";
@@ -138,7 +139,7 @@ module ietf-netconf-acm {
       }
     }
     description
-      "NETCONF Access Operation.";
+      "Access Operation.";
   }
 
   typedef group-name-type {
@@ -196,8 +197,8 @@ module ietf-netconf-acm {
 
         o  The context node is the root node in the data tree.
 
-        The accessible tree includes actions and notifications tied to
-        data nodes.";
+        The accessible tree includes actions and notifications tied
+        to data nodes.";
   }
 
   /*
