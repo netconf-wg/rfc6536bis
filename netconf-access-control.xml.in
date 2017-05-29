@@ -212,9 +212,9 @@
         The following terms are used throughout this document:
         <list style="hanging">
           <t hangText="access control:">
-            A security feature provided by the NETCONF server
+            A security feature provided by the server
             that allows an administrator to restrict access to a
-            subset of all NETCONF protocol operations and data,
+            subset of all protocol operations and data,
             based on various criteria.
           </t>
           <t hangText="access control model (ACM):">
@@ -224,7 +224,7 @@
           </t>
           <t hangText="access control rule:">
             The criterion used to determine if a
-            particular NETCONF protocol operation will be
+            particular protocol operation will be
             permitted or denied.
           </t>
           <t hangText="access operation:">
@@ -478,7 +478,7 @@
       <t>
         A data model designer needs to be able to
         use machine-readable statements to identify
-        NETCONF content, which needs to be protected by default.
+        content that needs to be protected by default.
         This will allow client and server tools to automatically
         identify data-model-specific security risks, by
         denying access to sensitive data unless the user is
@@ -1137,17 +1137,17 @@
          global switch is relevant if no matching
          access control rule is found to explicitly
          permit or deny read access to the requested
-         NETCONF datastore data or notification event type.
+         datastore data or notification event type.
        </t>
        <t>
          When this global switch is set to "permit" and no matching
-         access control rule is found for the NETCONF
+         access control rule is found for the
          datastore read or notification event requested, then access
          is permitted.
        </t>
        <t>
          When this global switch is set to "deny" and no matching
-         access control rule is found for the NETCONF
+         access control rule is found for the
          datastore read or notification event requested, then access
          is denied.
        </t>
@@ -1161,16 +1161,16 @@
          global switch is relevant if no matching
          access control rule is found to explicitly
          permit or deny write access to the requested
-         NETCONF datastore data.
+         datastore data.
        </t>
        <t>
          When this global switch is set to "permit" and no matching
-         access control rule is found for the NETCONF
+         access control rule is found for the
          datastore write requested, then access is permitted.
        </t>
        <t>
          When this global switch is set to "deny" and no matching
-         access control rule is found for the NETCONF
+         access control rule is found for the
          datastore write requested, then access
          is denied.
        </t>
@@ -2088,16 +2088,16 @@ m4_include(ietf-netconf-acm.yang)
       <t>
       <list style="symbols">
         <t>
-          Correct section title for changes since RFC 6536
+          Corrected section title for changes since RFC 6536.
         </t>
         <t>
-          Add section 'Mapping New Datastores to NACM'
+          Added section 'Mapping New Datastores to NACM'.
         </t>
         <t>
-          Change term NETCONF datastore to datastore
+          Changed term NETCONF datastore to datastore/
         </t>
         <t>
-          Remove text about RESTCONF and a conceptual datastore
+          Removed text about RESTCONF and a conceptual datastore.
         </t>
       </list>
       </t>
