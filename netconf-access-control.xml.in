@@ -81,7 +81,7 @@
    </address>
   </author>
 
-  <date month="May" day="30" year="2017" />
+  <date month="June" day="27" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -2083,6 +2083,16 @@ m4_include(ietf-netconf-acm.yang)
       The NACM issue tracker can be found here:
       https://github.com/netconf-wg/rfc6536bis/issues
     </t>
+
+    <section title="v02 to v03">
+      <t>
+      <list style="symbols">
+        <t>
+          Clarify NACM YANG extensions for use outside NACM
+        </t>
+      </list>
+      </t>
+    </section>
 
     <section title="v01 to v02">
       <t>

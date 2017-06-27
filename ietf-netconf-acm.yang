@@ -38,10 +38,11 @@ module ietf-netconf-acm {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision "2017-05-29" {
+  revision "2017-06-27" {
     description
       "Added support for YANG 1.1 actions and notifications tied to
-       data nodes.";
+       data nodes. Clarify how NACM extensions can be used by other
+       data models.";
     reference
       "RFC XXXX: Network Configuration Protocol (NETCONF)
                  Access Control Model";
@@ -64,11 +65,13 @@ module ietf-netconf-acm {
       "Used to indicate that the data model node
        represents a sensitive security system parameter.
 
-       If present, and the NACM module is enabled (i.e.,
-       /nacm/enable-nacm object equals 'true'), the NETCONF server
-       will only allow the designated 'recovery session' to have
-       write access to the node.  An explicit access control rule is
-       required for all other users.
+       If present, the NETCONF server will only allow the designated
+       'recovery session' to have write access to the node.  An
+       explicit access control rule is required for all other users.
+
+       If the NACM module is used, then it must be enabled (i.e.,
+       /nacm/enable-nacm object equals 'true'), or this extension
+       is ignored.
 
        The 'default-deny-write' extension MAY appear within a data
        definition statement.  It is ignored otherwise.";
@@ -79,11 +82,14 @@ module ietf-netconf-acm {
       "Used to indicate that the data model node
        controls a very sensitive security system parameter.
 
-       If present, and the NACM module is enabled (i.e.,
-       /nacm/enable-nacm object equals 'true'), the NETCONF server
-       will only allow the designated 'recovery session' to have
-       read, write, or execute access to the node.  An explicit
-       access control rule is required for all other users.
+       If present, the NETCONF server will only allow the designated
+       'recovery session' to have read, write, or execute access to the
+       node.  An explicit access control rule is required for all other
+       users.
+
+       If the NACM module is used, then it must be enabled (i.e.,
+       /nacm/enable-nacm object equals 'true'), or this extension
+       is ignored.
 
        The 'default-deny-all' extension MAY appear within a data
        definition statement, 'rpc' statement, or 'notification'
