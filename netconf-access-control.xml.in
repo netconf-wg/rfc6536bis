@@ -803,8 +803,8 @@
               For PUT, PATCH, and DELETE requests, any data nodes
               which are ancestor nodes of the target resource are not
               considered to be part of the edit request for access
-              control purposes. The edit operation for these nodes is
-              considered to be 'none'. The edit begins at the
+              control purposes. The access operation for these nodes is
+              considered to be "none". The edit begins at the
               target resource.
             </t>
             <t>
@@ -812,8 +812,8 @@
               which are specified in the request URI, including the
               target resource, are not considered to be part of the
               edit request for access control purposes.
-              The edit operation for these nodes is considered
-              to be 'none'. The edit begins at a child
+              The access operation for these nodes is considered
+              to be "none". The edit begins at a child
               node of the target resource, specified in the message body.
             </t>
           </list>
@@ -821,7 +821,7 @@
         <t>
           Not all RESTCONF methods are subject to access control.
           The following table specifies how each method is
-          mapped to NETCONF protocol operations. The value 'none'
+          mapped to NETCONF protocol operations. The value "none"
           indicates that NACM is not applied at all to the specific
           RESTCONF method.
         </t>
@@ -830,7 +830,7 @@
           <ttcol align='left'>method</ttcol>
           <ttcol align='left'>resource class</ttcol>
           <ttcol align='left'>NETCONF operation</ttcol>
-          <ttcol align='left'>Edit operation</ttcol>
+          <ttcol align='left'>Access operation</ttcol>
           <c>OPTIONS</c>
           <c>all</c>
           <c>none</c>
