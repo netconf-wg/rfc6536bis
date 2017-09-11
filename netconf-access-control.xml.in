@@ -224,7 +224,7 @@
           </t>
           <t hangText="access control rule:">
             The criterion used to determine if a
-            particular protocol operation will be
+            particular access operation will be
             permitted or denied.
           </t>
           <t hangText="access operation:">
@@ -291,11 +291,15 @@
 
     <section title="Access Control Points">
       <t>
-        NETCONF allows new protocol operations to be
-        added at any time, and the YANG Data Modeling Language
-        supports this feature.  It is not possible to
-        design an ACM for NETCONF that
-        only focuses on a static set of protocol operations,
+        NETCONF allows server implementors to add new custom
+        protocol operations, and the YANG Data Modeling Language
+        supports this feature.  These operations can be defined
+        in standard or proprietary YANG modules.
+      </t>
+      <t>
+        It is not possible to design an ACM for NETCONF that
+        only focuses on a static set of standard protocol operations
+        defined by the NETCONF protocol itself,
         like some other protocols.  Since few assumptions
         can be made about an arbitrary protocol operation,
         the NETCONF architectural server components need to
@@ -396,9 +400,9 @@
         It is necessary that the user-to-group mapping can be
         delegated to a central server, such as a RADIUS server <xref
         target="RFC2865"/><xref target="RFC5607"/>.  Since
-        authentication is performed by the NETCONF transport layer
+        authentication is performed by the transport layer
         and RADIUS performs authentication and service authorization
-        at the same time, the underlying NETCONF transport needs to be
+        at the same time, the underlying transport protocol needs to be
         able to report a set of group names associated with the user
         to the server.  It is necessary that the administrator can
         disable the usage of these group names within the ACM.
@@ -1200,13 +1204,13 @@
        <section title="enable-external-groups Switch">
          <t>
            When this global switch is set to "true", the group names
-           reported by the NETCONF transport layer for a session are
+           reported by the transport layer for a session are
            used together with the locally configured group names to
            determine the access control rules for the session.
          </t>
          <t>
            When this switch is set to "false", the group names
-           reported by the NETCONF transport layer are ignored by
+           reported by the transport layer are ignored by
            NACM.
          </t>
        </section>
@@ -1286,7 +1290,7 @@ target="message-proc-model" />).
        </t>
        <t>
          Once session establishment is completed and a user
-         has been authenticated, the NETCONF transport layer reports
+         has been authenticated, the transport layer reports
          the username and a possibly empty set of group names
          associated with the user to the NETCONF server.  The NETCONF
          server will enforce the access control rules, based on the
@@ -1902,7 +1906,7 @@ m4_include(ietf-netconf-acm.yang)
        </t>
        <t>
          An administrator needs to be aware of the security properties
-         of any external protocol used by the NETCONF transport layer
+         of any external protocol used by the transport layer
          to determine group names.  For example, if this protocol does
          not protect against man-in-the-middle attacks, an attacker
          might be able to inject group names that are configured in
@@ -2083,6 +2087,20 @@ m4_include(ietf-netconf-acm.yang)
       The NACM issue tracker can be found here:
       https://github.com/netconf-wg/rfc6536bis/issues
     </t>
+
+    <section title="v03 to v04">
+      <t>
+      <list style="symbols">
+        <t>
+          Clarify NETCONF protocol operation vs added operation
+          via additional YANG modules
+        </t>
+        <t>
+          Change term 'NETCONF transport layer' to 'transport layer'
+        </t>
+      </list>
+      </t>
+    </section>
 
     <section title="v02 to v03">
       <t>
