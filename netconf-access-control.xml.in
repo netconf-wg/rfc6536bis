@@ -81,7 +81,7 @@
    </address>
   </author>
 
-  <date month="June" day="27" year="2017" />
+  <date month="September" day="13" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -883,6 +883,15 @@
       </section>
 
       <section title="&lt;get&gt; and &lt;get-config&gt; Operations">
+        <t>
+          The NACM access rights are not directly coupled to the
+          &lt;get&gt; and &lt;get-config&gt; protocol operations,
+          but apply to all &lt;rpc&gt; operations that would result
+          in a "read" access operation to the target datastore.
+          This section describes how these access rights apply to the
+          specific access operations supported by the &lt;get&gt;
+          and &lt;get-config&gt; protocol operations.
+        </t>
         <t>
           Data nodes to which the client does not have read access are
           silently omitted from the &lt;rpc-reply&gt; message.  This
@@ -1800,7 +1809,7 @@ m4_include(ietf-netconf-acm.tree)
 <!-- errata 3863 applied in group-name-type below -->
 
            <artwork><![CDATA[
-<CODE BEGINS> file "ietf-netconf-acm@2017-05-29.yang"
+<CODE BEGINS> file "ietf-netconf-acm@2017-09-13.yang"
 m4_include(ietf-netconf-acm.yang)
 <CODE ENDS>
              ]]></artwork>
@@ -2088,7 +2097,7 @@ m4_include(ietf-netconf-acm.yang)
       https://github.com/netconf-wg/rfc6536bis/issues
     </t>
 
-    <section title="v03 to v04">
+    <section title="v04 to v05">
       <t>
       <list style="symbols">
         <t>
@@ -2097,6 +2106,23 @@ m4_include(ietf-netconf-acm.yang)
         </t>
         <t>
           Change term 'NETCONF transport layer' to 'transport layer'
+        </t>
+        <t>
+          Clarify that read access operations are not coupled
+          to specific protocol opreations
+        </t>
+        <t>
+          Update date of YANG module so it matches new revision date
+        </t>
+      </list>
+      </t>
+    </section>
+
+    <section title="v03 to v04">
+      <t>
+      <list style="symbols">
+        <t>
+          Fix revision date mismatch for extracting YANG module
         </t>
       </list>
       </t>
