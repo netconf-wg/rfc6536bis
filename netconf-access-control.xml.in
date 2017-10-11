@@ -2142,6 +2142,9 @@ m4_include(ietf-netconf-acm.yang)
         <t>
           Clarify data rule case in YANG module
         </t>
+        <t>
+          Update security considerations section
+        </t>
       </list>
       </t>
     </section>
