@@ -9,6 +9,8 @@
     <!ENTITY rfc3688 PUBLIC ''
     'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'>
     -->
+    <!ENTITY rfc5246 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml'>
     <!ENTITY rfc5277 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5277.xml'>
     <!ENTITY rfc5607 PUBLIC ''
@@ -17,6 +19,8 @@
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml'>
     <!ENTITY rfc6241 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml'>
+    <!ENTITY rfc6242 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml'>
     <!ENTITY rfc6991 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml'>
     <!ENTITY rfc7230 PUBLIC ''
@@ -54,7 +58,7 @@
 
  <front>
   <title abbrev="NACM">
-    Network Configuration Protocol (NETCONF) Access Control Model
+    Network Configuration Access Control Module
   </title>
   <author fullname="Andy Bierman"
           initials="A.B."
@@ -81,7 +85,7 @@
    </address>
   </author>
 
-  <date month="September" day="13" year="2017" />
+  <date month="October" day="10" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -1809,7 +1813,7 @@ m4_include(ietf-netconf-acm.tree)
 <!-- errata 3863 applied in group-name-type below -->
 
            <artwork><![CDATA[
-<CODE BEGINS> file "ietf-netconf-acm@2017-09-13.yang"
+<CODE BEGINS> file "ietf-netconf-acm@2017-10-10.yang"
 m4_include(ietf-netconf-acm.yang)
 <CODE ENDS>
              ]]></artwork>
@@ -1844,14 +1848,44 @@ m4_include(ietf-netconf-acm.yang)
 
    <section anchor="Security" title="Security Considerations">
      <t>
-       This entire document discusses access control
-       requirements and mechanisms for restricting
-       NETCONF protocol behavior within a given session.
+       The YANG module defined in this document is designed to be
+       accessed via network management protocols such as NETCONF
+       <xref target="RFC6241"/> or RESTCONF <xref target="RFC8040"/>.
+       The lowest NETCONF layer is the secure transport layer,
+       and the mandatory-to-implement secure transport is Secure Shell
+       (SSH) <xref target="RFC6242"/>. The lowest RESTCONF layer is HTTPS,
+       and the mandatory-to-implement secure transport is TLS
+       <xref target="RFC5246"/>.
      </t>
+     <t>
+       The NETCONF access control model [RFCXXXX] provides the means
+       to restrict access for particular NETCONF or RESTCONF users
+       to a preconfigured subset of all available NETCONF or RESTCONF
+       protocol operations and content.
+     </t>
+
+     <t>
+       There are a number of data nodes defined in this YANG module
+       that are writable/creatable/deletable (i.e., config true,
+       which is the default). These data nodes may be considered
+       sensitive or vulnerable in some network environments.
+       Write operations (e.g., edit-config) to these data nodes
+       without proper protection can have a negative effect on
+       network operations. These are the subtrees and data nodes
+       and their sensitivity/vulnerability:
+       <list style="symbols">
+         <t>
+           /nacm : the entire /nacm subtree is related to security.
+           Refer to the following sections for more details.
+         </t>
+       </list>
+     </t>
+
      <t>
        This section highlights the issues for an administrator
        to consider when configuring a NETCONF server with NACM.
      </t>
+
      <section title="NACM Configuration and Monitoring Considerations">
        <t>
          Configuration of the access control system is
@@ -2067,9 +2101,11 @@ m4_include(ietf-netconf-acm.yang)
   <references title="Normative References">
     &rfc2119;
 <!--    &rfc3688;  -->
+    &rfc5246;
     &rfc5277;
     &rfc6020;
     &rfc6241;
+    &rfc6242;
     &rfc6991;
     &rfc7230;
     &rfc7950;
@@ -2097,6 +2133,19 @@ m4_include(ietf-netconf-acm.yang)
       https://github.com/netconf-wg/rfc6536bis/issues
     </t>
 
+    <section title="v05 to v06">
+      <t>
+      <list style="symbols">
+        <t>
+          Change title to remove the word NETCONF
+        </t>
+        <t>
+          Clarify data rule case in YANG module
+        </t>
+      </list>
+      </t>
+    </section>
+
     <section title="v04 to v05">
       <t>
       <list style="symbols">
@@ -2109,7 +2158,7 @@ m4_include(ietf-netconf-acm.yang)
         </t>
         <t>
           Clarify that read access operations are not coupled
-          to specific protocol opreations
+          to specific protocol operations
         </t>
         <t>
           Update date of YANG module so it matches new revision date
