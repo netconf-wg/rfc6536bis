@@ -348,16 +348,11 @@
     </section>
     <section title="Simplicity">
       <t>
-        There is concern that a complicated ACM will not
-        be widely deployed because it is too hard to use.
-        It needs to be easy to do simple things and possible to do
-        complex things, instead of hard to do everything.
-      </t>
-      <t>
-        Configuration of the access control system needs to be as
-        simple as possible.  Simple and common tasks need to be easy
-        to configure and require little expertise or domain-specific
-        knowledge.  Complex tasks are possible using additional
+        There is concern that a complicated ACM will not be widely deployed
+        because it is too hard to use. Configuration of the access control
+        system needs to be as simple as possible.  Simple and common tasks
+        need to be easy to configure and require little expertise or
+        domain-specific knowledge.  Complex tasks are possible using additional
         mechanisms, which may require additional expertise.
       </t>
       <t>
@@ -567,11 +562,8 @@
       <section title="External Dependencies">
         <t>
           The <xref target="RFC6241">NETCONF protocol</xref>
-          is used for network management purposes within this document.
-        </t>
-        <t>
-          The <xref target="RFC8040">RESTCONF protocol</xref>
-          is used for network management purposes within this document.
+          and <xref target="RFC8040">RESTCONF protocol</xref>
+          are used for network management purposes within this document.
         </t>
         <t>
           The <xref target="RFC7950">
@@ -595,6 +587,14 @@
           For example, a POST method on a data resource is considered
           "write data node" access, but a POST method on an operation
           resource is considered "operation" access.
+        </t>
+        <t>
+          The new "pre-read data acc. ctl" boxes in the diagram below
+          refer to group read access as it relates to data node ancestors
+          of an action or notification. As an example, if an action is
+          defined as /interfaces/interface/reset-interface, the group
+          must be authorized to read /interfaces and /interfaces/interface,
+          and execute on /interfaces/interface/reset-interface.
         </t>
         <t>
           <figure anchor="NACM_model">
@@ -841,17 +841,17 @@
           <c>OPTIONS</c>
           <c>all</c>
           <c>none</c>
-          <c>N/A</c>
+          <c>none</c>
 
           <c>HEAD</c>
           <c>all</c>
           <c>&lt;get&gt;</c>
-          <c>N/A</c>
+          <c>read</c>
 
           <c>GET</c>
           <c>all</c>
           <c>&lt;get&gt;</c>
-          <c>N/A</c>
+          <c>read</c>
 
           <c>POST</c>
           <c>datastore, data</c>
@@ -861,22 +861,22 @@
           <c>POST</c>
           <c>operation</c>
           <c>specified operation</c>
-          <c>N/A</c>
+          <c>execute</c>
 
           <c>PUT</c>
           <c>data</c>
           <c>&lt;edit-config&gt;</c>
-          <c>create, replace</c>
+          <c>create, update</c>
 
           <c>PUT</c>
           <c>datastore</c>
           <c>&lt;copy-config&gt;</c>
-          <c>replace</c>
+          <c>update</c>
 
           <c>PATCH</c>
           <c>data, datastore</c>
           <c>&lt;edit-config&gt;</c>
-          <c>merge</c>
+          <c>update</c>
 
           <c>DELETE</c>
           <c>data</c>
@@ -924,7 +924,7 @@
           If the effective access operation is "none"
           (i.e., default-operation="none")
           for a particular data node,
-          then no access control is applied to that data node.
+          then read permission is required for that data node.
           This is required to allow access to a subtree within
           a larger data structure.  For example, a user may be
           authorized to create a new "/interfaces/interface" list entry
@@ -1111,6 +1111,7 @@
          unique within the server.
        </t>
        <t>
+         A group contains zero or more group members.
          A group member is identified by a username string.
        </t>
        <t>
@@ -1861,6 +1862,18 @@ m4_include(ietf-netconf-acm.yang)
        to restrict access for particular NETCONF or RESTCONF users
        to a preconfigured subset of all available NETCONF or RESTCONF
        protocol operations and content.
+     </t>
+
+     <t>
+       There is a risk related to the lack of access control
+       enforcement for the RESTCONF OPTIONS method. The risk here
+       is that the response to OPTIONS may vary based on the presence
+       or absence of a resource corresponding to the URL's path. If this
+       is the case, then it can be used to trivially probe for the presence
+       or absence of values within a tree. Therefore, a server MUST NOT
+       vary their OPTIONS responses based on the existence of the underlying
+       resource, which would indicate the presence or absence of
+       resource instances.
      </t>
 
      <t>
