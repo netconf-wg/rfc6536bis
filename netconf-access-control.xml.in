@@ -31,6 +31,9 @@
     <!ENTITY rfc8040 PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'>
 
+    <!ENTITY rfc8174 PUBLIC ''
+      'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml'>
+
     <!ENTITY I-D.ietf-netmod-revised-datastores PUBLIC ''
       'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-revised-datastores-02.xml'>
 
@@ -147,10 +150,12 @@
     </t>
     <section title="Terminology">
       <t>
-        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
-        "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-        and "OPTIONAL" in this document are to be interpreted as
-        described in <xref target="RFC2119"/>.
+      The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+      "MAY", and "OPTIONAL" in this document are to be interpreted as
+      described in BCP 14 <xref target="RFC2119"/>
+      <xref target="RFC8174"/> when, and only when, they
+      appear in all capitals, as shown here.
       </t>
 
       <t>
@@ -281,6 +286,12 @@
         The RESTCONF operations are similar to the NETCONF operations,
         so a simple mapping to the existing NACM procedures
         and data model is possible.
+      </t>
+      <t>
+        The server message processing behavior for the
+        edit operation "none", used in the &lt;edit-config&gt;,
+        has been changed. Now read access is required for
+        such data nodes, instead of no access required.
       </t>
     </section>
   </section>
@@ -845,12 +856,12 @@
 
           <c>HEAD</c>
           <c>all</c>
-          <c>&lt;get&gt;</c>
+          <c>&lt;get&gt;, &lt;get-config&gt;</c>
           <c>read</c>
 
           <c>GET</c>
           <c>all</c>
-          <c>&lt;get&gt;</c>
+          <c>&lt;get&gt;, &lt;get-config&gt;</c>
           <c>read</c>
 
           <c>POST</c>
@@ -1111,7 +1122,10 @@
          unique within the server.
        </t>
        <t>
+         Access control is applied at the level of groups.
          A group contains zero or more group members.
+       </t>
+       <t>
          A group member is identified by a username string.
        </t>
        <t>
@@ -2122,6 +2136,7 @@ m4_include(ietf-netconf-acm.yang)
     &rfc7230;
     &rfc7950;
     &rfc8040;
+    &rfc8174;
     &I-D.ietf-netmod-revised-datastores;
   </references>
 
