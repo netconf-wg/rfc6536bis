@@ -88,14 +88,13 @@
    </address>
   </author>
 
-  <date month="October" day="26" year="2017" />
+  <date month="November" day="11" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
   <keyword>RESTCONF</keyword>
   <keyword>YANG</keyword>
   <keyword>XML</keyword>
-
 
   <abstract>
    <t>
@@ -908,7 +907,8 @@
         </t>
         <t>
           Data nodes to which the client does not have read access are
-          silently omitted from the &lt;rpc-reply&gt; message.  This
+          silently omitted, along with any descendants,
+          from the &lt;rpc-reply&gt; message.  This
           is done to allow NETCONF filters for &lt;get&gt; and
           &lt;get-config&gt; to function properly, instead of causing
           an "access-denied" error because the filter criteria would
@@ -1259,7 +1259,7 @@
            </t>
            <t hangText="data node rule:">
              controls access for a
-             specific data node, identified by its
+             specific data node and its descendants, identified by its
              path location within the conceptual
              XML document for the data node.
            </t>
@@ -1571,6 +1571,9 @@ target="message-proc-model" />).
                  The rule does not have a "rule-type" defined or the
                  "rule-type" is "data-node" and the "path" matches the
                  requested data node, action node, or notification node.
+                 A path is considered to match if the current data node
+                 is the data node specified by the path, or is a
+                 descendant data node of this data node.
                </t>
                <t>
                  For a "read" access operation, the rule's
@@ -1611,18 +1614,19 @@ target="message-proc-model" />).
              entry.
            </t>
            <t anchor="data-node-default">
-             For a "read" access operation, if the requested data node is defined
-             in a YANG module advertised in the server capabilities
+             For a "read" access operation, if the requested data node
+             is defined in a YANG module advertised in the server capabilities
              and the data definition statement contains a
              "nacm:default-deny-all" statement, then the requested data
-             node is not included in the reply.
+             node and all its descendants are not included in the reply.
            </t>
            <t>
              For a "write" access operation, if the requested data node
              is defined in a YANG module advertised in the server
              capabilities and the data definition statement contains
              a "nacm:default-deny-write" or a "nacm:default-deny-all"
-             statement, then the data node access request is denied.
+             statement, then the access request is denied for the
+             data node and all its descendants.
            </t>
            <t>
              For a "read" access operation, if the "read-default" leaf is set to
@@ -2160,6 +2164,17 @@ m4_include(ietf-netconf-acm.yang)
       https://github.com/netconf-wg/rfc6536bis/issues
     </t>
 
+    <section title="v08 to v09">
+      <t>
+      <list style="symbols">
+        <t>
+          Clarify that a data rule applies to a data node
+          and its descendants.
+        </t>
+      </list>
+      </t>
+    </section>
+
     <section title="v07 to v08">
       <t>
       <list style="symbols">
@@ -2423,10 +2438,6 @@ m4_include(ex4.xml)
           <t hangText="deny-nacm:">
             This rule denies the "guest" group
             any access to the &lt;nacm&gt; subtree.
-            Note that the default namespace is only
-            applicable because this subtree is defined
-            in the same namespace as the &lt;data-rule&gt;
-            element.
           </t>
           <t hangText="permit-acme-config:">
             This rule gives the "limited" group
