@@ -1571,9 +1571,9 @@ target="message-proc-model" />).
                  The rule does not have a "rule-type" defined or the
                  "rule-type" is "data-node" and the "path" matches the
                  requested data node, action node, or notification node.
-                 A path is considered to match if the current data node
-                 is the data node specified by the path, or is a
-                 descendant data node of this data node.
+                 A path is considered to match if the requested node
+                 is the node specified by the path, or is a
+                 descendant node of the path.
                </t>
                <t>
                  For a "read" access operation, the rule's
