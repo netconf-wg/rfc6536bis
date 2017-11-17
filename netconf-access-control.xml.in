@@ -88,7 +88,7 @@
    </address>
   </author>
 
-  <date month="November" day="15" year="2017" />
+  <date month="November" day="17" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -285,12 +285,6 @@
         The RESTCONF operations are similar to the NETCONF operations,
         so a simple mapping to the existing NACM procedures
         and data model is possible.
-      </t>
-      <t>
-        The server message processing behavior for the
-        edit operation "none", used in the &lt;edit-config&gt;,
-        has been changed. Now read access is required for
-        such data nodes, instead of no access required.
       </t>
     </section>
   </section>
@@ -1889,16 +1883,18 @@ m4_include(ietf-netconf-acm.yang)
      </t>
 
      <t>
-       There is a risk related to the lack of access control
-       enforcement for the RESTCONF OPTIONS method. The risk here
-       is that the response to OPTIONS may vary based on the presence
-       or absence of a resource corresponding to the URL's path. If this
-       is the case, then it can be used to trivially probe for the presence
-       or absence of values within a tree. Therefore, a server MUST NOT
-       vary their OPTIONS responses based on the existence of the underlying
-       resource, which would indicate the presence or absence of
-       resource instances. In particular, servers SHOULD NOT expose
-       instance information before validating field information.
+       There is a risk related to the lack of access control enforcement for
+   the RESTCONF OPTIONS and PATCH methods.  The risk here is that the response to
+   OPTIONS and PATCH may vary based on the presence or absence of a resource
+   corresponding to the URL's path.  If this is the case, then it can be
+   used to trivially probe for the presence or absence of values within
+   a tree.  Therefore, a server MUST NOT vary its responses
+   based on the existence of the underlying resource, which would
+   indicate the presence or absence of resource instances. In particular
+   servers should not expose any instance information before ensuring
+   that the client has the necessary access permissions to obtain that
+   information. In such cases, servers are expected to always return
+   the "access-denied" error response.
      </t>
 
      <t>

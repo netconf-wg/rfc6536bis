@@ -6,7 +6,7 @@ Internet Engineering Task Force                               A. Bierman
 Internet-Draft                                                 YumaWorks
 Obsoletes: 6536 (if approved)                               M. Bjorklund
 Intended status: Standards Track                          Tail-f Systems
-Expires: May 19, 2018                                  November 15, 2017
+Expires: May 21, 2018                                  November 17, 2017
 
 
               Network Configuration Access Control Module
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 19, 2018.
+   This Internet-Draft will expire on May 21, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 1]
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 1]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -73,17 +73,17 @@ Table of Contents
    2.  Access Control Design Objectives  . . . . . . . . . . . . . .   6
      2.1.  Access Control Points . . . . . . . . . . . . . . . . . .   6
      2.2.  Simplicity  . . . . . . . . . . . . . . . . . . . . . . .   7
-     2.3.  Procedural Interface  . . . . . . . . . . . . . . . . . .   8
+     2.3.  Procedural Interface  . . . . . . . . . . . . . . . . . .   7
      2.4.  Datastore Access  . . . . . . . . . . . . . . . . . . . .   8
      2.5.  Users and Groups  . . . . . . . . . . . . . . . . . . . .   8
      2.6.  Maintenance . . . . . . . . . . . . . . . . . . . . . . .   8
      2.7.  Configuration Capabilities  . . . . . . . . . . . . . . .   8
-     2.8.  Identifying Security-Sensitive Content  . . . . . . . . .   9
+     2.8.  Identifying Security-Sensitive Content  . . . . . . . . .   8
    3.  NETCONF Access Control Model (NACM) . . . . . . . . . . . . .   9
      3.1.  Introduction  . . . . . . . . . . . . . . . . . . . . . .   9
-       3.1.1.  Features  . . . . . . . . . . . . . . . . . . . . . .  10
+       3.1.1.  Features  . . . . . . . . . . . . . . . . . . . . . .   9
        3.1.2.  External Dependencies . . . . . . . . . . . . . . . .  10
-       3.1.3.  Message Processing Model  . . . . . . . . . . . . . .  11
+       3.1.3.  Message Processing Model  . . . . . . . . . . . . . .  10
      3.2.  Datastore Access  . . . . . . . . . . . . . . . . . . . .  14
        3.2.1.  Mapping New Datastores to NACM  . . . . . . . . . . .  14
        3.2.2.  Access Rights . . . . . . . . . . . . . . . . . . . .  14
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 2]
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 2]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -165,7 +165,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 3]
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 3]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -221,7 +221,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 4]
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 4]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -277,7 +277,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 5]
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 5]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -310,10 +310,6 @@ Internet-Draft                    NACM                     November 2017
    operations are similar to the NETCONF operations, so a simple mapping
    to the existing NACM procedures and data model is possible.
 
-   The server message processing behavior for the edit operation "none",
-   used in the <edit-config>, has been changed.  Now read access is
-   required for such data nodes, instead of no access required.
-
 2.  Access Control Design Objectives
 
    This section documents the design objectives for the NETCONF Access
@@ -330,18 +326,17 @@ Internet-Draft                    NACM                     November 2017
    a static set of standard protocol operations defined by the NETCONF
    protocol itself, like some other protocols.  Since few assumptions
    can be made about an arbitrary protocol operation, the NETCONF
-
-
-
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 6]
-
-Internet-Draft                    NACM                     November 2017
-
-
    architectural server components need to be protected at three
    conceptual control points.
 
    These access control points, described in Figure 1, are as follows:
+
+
+
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 6]
+
+Internet-Draft                    NACM                     November 2017
+
 
    protocol operation:  Permission to invoke specific protocol
       operations.
@@ -383,22 +378,21 @@ Internet-Draft                    NACM                     November 2017
    Access control ought to be defined with a small and familiar set of
    permissions, while still allowing full control of datastore access.
 
-
-
-
-
-
-
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 7]
-
-Internet-Draft                    NACM                     November 2017
-
-
 2.3.  Procedural Interface
 
    The NETCONF protocol uses a remote procedure call model and an
    extensible set of protocol operations.  Access control for any
    possible protocol operation is necessary.
+
+
+
+
+
+
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 7]
+
+Internet-Draft                    NACM                     November 2017
+
 
 2.4.  Datastore Access
 
@@ -441,21 +435,20 @@ Internet-Draft                    NACM                     November 2017
    Access control rules to restrict access operations on specific
    subtrees within the configuration datastore need to be supported.
 
-
-
-
-
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 8]
-
-Internet-Draft                    NACM                     November 2017
-
-
 2.8.  Identifying Security-Sensitive Content
 
    One of the most important aspects of the data model documentation,
    and biggest concerns during deployment, is the identification of
    security-sensitive content.  This applies to protocol operations in
    NETCONF, not just data and notifications.
+
+
+
+
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 8]
+
+Internet-Draft                    NACM                     November 2017
+
 
    It is mandatory for security-sensitive objects to be documented in
    the Security Considerations section of an RFC.  This is nice, but it
@@ -499,19 +492,19 @@ Internet-Draft                    NACM                     November 2017
    processing model and the conceptual access control requirements
    within that model.
 
-
-
-Bierman & Bjorklund       Expires May 19, 2018                  [Page 9]
-
-Internet-Draft                    NACM                     November 2017
-
-
 3.1.1.  Features
 
    The NACM data model provides the following features:
 
    o  Independent control of remote procedure call (RPC), action, data,
       and notification access.
+
+
+
+Bierman & Bjorklund       Expires May 21, 2018                  [Page 9]
+
+Internet-Draft                    NACM                     November 2017
+
 
    o  Simple access control rules configuration data model that is easy
       to use.
@@ -554,19 +547,20 @@ Internet-Draft                    NACM                     November 2017
    models for use with the NETCONF or RESTCONF protocols.  YANG is also
    used to define the data model in this document.
 
-
-
-
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 10]
-
-Internet-Draft                    NACM                     November 2017
-
-
 3.1.3.  Message Processing Model
 
    The following diagram shows the conceptual message flow model,
    including the points at which access control is applied during
    NETCONF message processing.
+
+
+
+
+
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 10]
+
+Internet-Draft                    NACM                     November 2017
+
 
    RESTCONF operations are mapped to the access control model based on
    the HTTP method and resource class used in the operation.  For
@@ -613,7 +607,13 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 11]
+
+
+
+
+
+
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 11]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -669,7 +669,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 12]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 12]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -725,7 +725,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 13]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 13]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -781,7 +781,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 14]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 14]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -837,7 +837,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 15]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 15]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -893,7 +893,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 16]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 16]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -949,7 +949,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 17]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 17]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1005,7 +1005,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 18]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 18]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1061,7 +1061,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 19]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 19]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1117,7 +1117,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 20]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 20]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1173,7 +1173,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 21]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 21]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1229,7 +1229,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 22]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 22]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1285,7 +1285,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 23]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 23]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1341,7 +1341,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 24]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 24]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1397,7 +1397,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 25]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 25]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1453,7 +1453,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 26]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 26]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1509,7 +1509,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 27]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 27]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1565,7 +1565,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 28]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 28]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1621,7 +1621,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 29]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 29]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1677,7 +1677,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 30]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 30]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1733,7 +1733,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 31]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 31]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1789,7 +1789,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 32]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 32]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1845,7 +1845,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 33]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 33]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1901,7 +1901,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 34]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 34]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -1957,7 +1957,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 35]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 35]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2013,7 +2013,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 36]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 36]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2069,7 +2069,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 37]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 37]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2125,7 +2125,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 38]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 38]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2181,7 +2181,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 39]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 39]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2237,7 +2237,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 40]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 40]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2257,15 +2257,17 @@ Internet-Draft                    NACM                     November 2017
    operations and content.
 
    There is a risk related to the lack of access control enforcement for
-   the RESTCONF OPTIONS method.  The risk here is that the response to
-   OPTIONS may vary based on the presence or absence of a resource
-   corresponding to the URL's path.  If this is the case, then it can be
-   used to trivially probe for the presence or absence of values within
-   a tree.  Therefore, a server MUST NOT vary their OPTIONS responses
-   based on the existence of the underlying resource, which would
-   indicate the presence or absence of resource instances.  In
-   particular, servers SHOULD NOT expose instance information before
-   validating field information.
+   the RESTCONF OPTIONS and PATCH methods.  The risk here is that the
+   response to OPTIONS and PATCH may vary based on the presence or
+   absence of a resource corresponding to the URL's path.  If this is
+   the case, then it can be used to trivially probe for the presence or
+   absence of values within a tree.  Therefore, a server MUST NOT vary
+   its responses based on the existence of the underlying resource,
+   which would indicate the presence or absence of resource instances.
+   In particular servers should not expose any instance information
+   before ensuring that the client has the necessary access permissions
+   to obtain that information.  In such cases, servers are expected to
+   always return the "access-denied" error response.
 
    There are a number of data nodes defined in this YANG module that are
    writable/creatable/deletable (i.e., config true, which is the
@@ -2288,16 +2290,16 @@ Internet-Draft                    NACM                     November 2017
    configuration to some portions of it, such as the global security
    level or the groups that allowed access to system resources.
 
-   By default, NACM enforcement is enabled.  By default, "read" access
-   to all datastore contents is enabled (unless "nacm:default-deny-all"
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 41]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 41]
 
 Internet-Draft                    NACM                     November 2017
 
 
+   By default, NACM enforcement is enabled.  By default, "read" access
+   to all datastore contents is enabled (unless "nacm:default-deny-all"
    is specified for the data definition), and "exec" access is enabled
    for safe protocol operations.  An administrator needs to ensure that
    NACM is enabled and also decide if the default access parameters are
@@ -2344,16 +2346,15 @@ Internet-Draft                    NACM                     November 2017
    names.  For example, if this protocol does not protect against man-
    in-the-middle attacks, an attacker might be able to inject group
    names that are configured in NACM, so that a user gets more
-   permissions than it should.  In such cases, the administrator may
 
 
 
-
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 42]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 42]
 
 Internet-Draft                    NACM                     November 2017
 
 
+   permissions than it should.  In such cases, the administrator may
    wish to disable the usage of such group names, by setting /nacm/
    enable-external-groups to "false".
 
@@ -2400,16 +2401,17 @@ Internet-Draft                    NACM                     November 2017
    detect NETCONF capability changes on a specific device are outside
    the scope of this document.
 
-   It is possible that the data model definition itself (e.g., YANG
-   when-stmt) will help an unauthorized session determine the presence
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 43]
+
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 43]
 
 Internet-Draft                    NACM                     November 2017
 
 
+   It is possible that the data model definition itself (e.g., YANG
+   when-stmt) will help an unauthorized session determine the presence
    or even value of sensitive data nodes by examining the presence and
    values of different data nodes.
 
@@ -2459,9 +2461,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-
-
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 44]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 44]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2517,7 +2517,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 45]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 45]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2573,7 +2573,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 46]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 46]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2629,7 +2629,7 @@ A.6.  v03 to v04
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 47]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 47]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2685,7 +2685,7 @@ B.1.  <groups> Example
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 48]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 48]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2741,7 +2741,7 @@ B.2.  Module Rule Example
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 49]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 49]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2797,7 +2797,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 50]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 50]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2853,7 +2853,7 @@ B.3.  Protocol Operation Rule Example
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 51]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 51]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2909,7 +2909,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 52]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 52]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -2965,7 +2965,7 @@ B.4.  Data Node Rule Example
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 53]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 53]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -3021,7 +3021,7 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 54]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 54]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -3077,7 +3077,7 @@ Authors' Addresses
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 55]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 55]
 
 Internet-Draft                    NACM                     November 2017
 
@@ -3133,4 +3133,4 @@ Internet-Draft                    NACM                     November 2017
 
 
 
-Bierman & Bjorklund       Expires May 19, 2018                 [Page 56]
+Bierman & Bjorklund       Expires May 21, 2018                 [Page 56]
