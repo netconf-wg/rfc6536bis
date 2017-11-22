@@ -88,7 +88,7 @@
    </address>
   </author>
 
-  <date month="November" day="17" year="2017" />
+  <date month="November" day="22" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -285,6 +285,19 @@
         The RESTCONF operations are similar to the NETCONF operations,
         so a simple mapping to the existing NACM procedures
         and data model is possible.
+      </t>
+      <t>
+        The data node access behavior for path matches has been
+        clarified to also include matching descendant nodes of the
+        specified path.
+      </t>
+      <t>
+        The &lt;edit-config&gt; operation access rights behavior has
+        been clarified to indicate that write access is not required
+        for data nodes that are implicitly modified through
+        side-effects (such as the evaluation of YANG when-stmts, or
+        data nodes implicitly deleted when creating a data node under
+        a different branch under a YANG choice-stmt).
       </t>
     </section>
   </section>
@@ -989,6 +1002,18 @@
           The contents of specific restricted datastore nodes MUST NOT
           be exposed in any &lt;rpc-error&gt; elements
           within the reply.
+        </t>
+        <t>
+          An &lt;edit-config&gt; operation may cause data nodes to be
+          implicitly created or deleted as an implicit side-effect of
+          a requested operation.  For example, a YANG when-stmt
+          expression may evaluate to a different result, causing data
+          nodes to be deleted, or created with default values; or if a
+          data node is created under one branch of a YANG choice-stmt,
+          then all data nodes under the other branches are implicitly
+          removed.  No NACM access rights are required on any data
+          nodes that are implicitly changed as a side effect of
+          another allowed operation.
         </t>
       </section>
 
@@ -2046,6 +2071,13 @@ m4_include(ietf-netconf-acm.yang)
          determine the presence or even value of sensitive data nodes
          by examining the presence and values of different data nodes.
        </t>
+        <t>
+         It is possible that the data model definition itself (e.g.,
+         YANG when-stmt or choice-stmt) will allow a session to
+         implicitly create or delete nodes that the session does not
+         have write access to as an implicit side effect from the
+         processing of an allowed &lt;edit-config&gt; operation.
+       </t>
        <t>
          There is a risk that non-standard protocol operations, or
          even the standard &lt;get&gt; protocol operation, may
@@ -2173,6 +2205,9 @@ m4_include(ietf-netconf-acm.yang)
         <t>
           Clarify that a data rule applies to a data node
           and its descendants.
+        </t>
+        <t>
+          Clarify that edit side effects are not subject to access control.
         </t>
       </list>
       </t>
