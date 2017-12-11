@@ -88,7 +88,7 @@
    </address>
   </author>
 
-  <date month="November" day="22" year="2017" />
+  <date month="December" day="11" year="2017" />
   <area>Management</area>
   <workgroup>Internet Engineering Task Force</workgroup>
   <keyword>NETCONF</keyword>
@@ -1856,7 +1856,7 @@ m4_include(ietf-netconf-acm.tree)
 <!-- errata 3863 applied in group-name-type below -->
 
            <artwork><![CDATA[
-<CODE BEGINS> file "ietf-netconf-acm@2017-11-15.yang"
+<CODE BEGINS> file "ietf-netconf-acm@2017-12-11.yang"
 m4_include(ietf-netconf-acm.yang)
 <CODE ENDS>
              ]]></artwork>
